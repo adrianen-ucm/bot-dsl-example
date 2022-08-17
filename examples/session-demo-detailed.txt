@@ -1,0 +1,79 @@
+{- | This file shows the syntax for defining sessions. For example, this is a multiline comment.
+
+To run the session defined in this file, make sure that you have node installed and, inside the 
+directory in where the .js distribution file is located, run
+
+  node . session-demo-detailed.txt
+
+It is also required to have in this same directory a config.json file with the 
+following contents:
+
+  {
+    "api_base_url": "Base URL of the API"
+  }
+
+The following is an example of a session, and a summary of commands is provided at the end 
+of this file.
+-}
+
+-- Session example:
+-- This is a comment
+login "adri" "1234"
+  delay 2000
+  random_post
+    -- Indentation matters
+    react smile
+    react sad
+    comment "Hi"
+      react angry
+      edit "Hi?"
+      delay 500
+      reply "Hi" {- Reply to the comment -}
+        react laugh
+      remove -- Delete the comment and its answers
+    react laugh -- This is again over the post
+  random_post -- Switch to other post
+    -- Do nothing with the post
+login "other" "4321" -- User change
+  -- Logged with other user, do nothing
+
+{-| Summary of commands
+
+  - Delay. Wait for the given milliseconds:
+
+    delay [millisegunds]
+
+  - Login. Authenticated session with username and password:
+
+    login [username] [password]
+      [commands to be run while authenticated]
+
+  - Random post. Get a random post and perform commands over it:
+
+    random_post
+      [commands to be run over that post]
+
+  - Reaction. Allows reacting to a post or comment:
+
+    react [sad|angry|smile|laugh]
+
+  - Comment. Allows to comment a post:
+
+    comment [text]
+      [commands to be run over the new comment]
+
+  - Edit comment. Allows to edit a comment:
+
+    edit [text]
+
+  - Delete comment. Allows to remove a comment. No commands are allowed for this comment 
+    after remove.
+
+    remove
+
+  - Reply to a comment. Allows replying to a comment and perform commands over the 
+    new comment:
+
+    reply [text]
+      [commands to be run over the new comment]
+-}

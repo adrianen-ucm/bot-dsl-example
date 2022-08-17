@@ -1,0 +1,17 @@
+{- | Run with:
+  node . session-demo-simple.txt
+-}
+
+login "adri" "1234"
+  delay 2000
+  random_post
+    react angry
+    react smile
+    comment "Hi"
+      react sad
+      edit "Hi?"
+      delay 500
+      reply "Hi"
+        react sad
+      remove
+    comment "Bye"

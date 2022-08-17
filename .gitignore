@@ -1,0 +1,10 @@
+.psci_modules
+.spago
+node_modules
+.DS_Store
+.psci
+.bundle
+.parcel-cache
+.psc-ide-port
+dist
+output

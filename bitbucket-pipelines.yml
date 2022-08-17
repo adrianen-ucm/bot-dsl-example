@@ -1,0 +1,37 @@
+image: node:16.15.0-buster
+
+pipelines:
+  default:
+    - step:
+        name: Resolve dependencies
+        caches:
+          - node
+        script:
+          - npm install
+    - step:
+        name: Build
+        caches:
+          - node
+          - purescript
+        script:
+          - tar -xpf .pscache/cache.tar.gz || true
+          - npm install
+          - npm run build
+          - mkdir -p .pscache && tar -cf .pscache/cache.tar.gz output .spago
+    - step:
+        name: Bundle
+        caches:
+          - node
+          - purescript
+        script:
+          - tar -xpf .pscache/cache.tar.gz || true
+          - npm install
+          - npm run bundle
+          - mkdir -p .pscache && tar -cf .pscache/cache.tar.gz output .spago
+
+#  PureScript cache is being compressed explicitly
+#  within each step due to Bitbucket's compression 
+#  not preserving file modification dates.
+definitions:
+  caches:
+    purescript: .pscache
